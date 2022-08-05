@@ -4,9 +4,11 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 )
 
 type MetaData struct {
@@ -21,9 +23,11 @@ type ReqBody struct {
 }
 
 func main() {
+	godotenv.Load()
+	port := os.Getenv("PORT")
 	r := mux.NewRouter()
 	r.HandleFunc("/get-metadata", MetaHandler).Methods("POST")
-	log.Fatal(http.ListenAndServe(":9000", r))
+	log.Fatal(http.ListenAndServe(":"+port, r))
 }
 
 func MetaHandler(w http.ResponseWriter, r *http.Request) {
