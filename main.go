@@ -31,6 +31,7 @@ func main() {
 }
 
 func MetaHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 
 	var t ReqBody
